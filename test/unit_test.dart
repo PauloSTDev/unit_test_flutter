@@ -1,5 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:mockito/mockito.dart';
+import 'package:mocktail/mocktail.dart';
 import 'package:unit_test_flutter/controllers/list_controller.dart';
 import 'package:unit_test_flutter/models/todo.dart';
 import 'package:unit_test_flutter/services/database.dart';
@@ -9,6 +9,7 @@ class MockDatabase extends Mock implements Database {}
 void main() {
   MockDatabase mockDatabase = MockDatabase();
   ListController listController = ListController();
+
   setUp(() {
     // This is run before each test
     listController = ListController(database: mockDatabase);
@@ -35,6 +36,14 @@ void main() {
       expect(listController.todoList[0].done, false);
       listController.checkboxSelected(true, 0);
       expect(listController.todoList[0].done, true);
+    });
+
+    test('Mock Database call', () async {
+      when(mockDatabase.loadDatabase).thenAnswer(
+        (_) => Future.value(TodoModel("Test with Mock", true)),
+      );
+      await listController.loadFromDatabase();
+      expect(listController.todoList[0].content, 'Test with Mock');
     });
   });
 }
