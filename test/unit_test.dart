@@ -38,6 +38,14 @@ void main() {
       expect(listController.todoList[0].done, true);
     });
 
+    test('Call Mock Database just one time', () async {
+      when(mockDatabase.loadDatabase).thenAnswer(
+        (_) => Future.value(TodoModel("Test with Mock", true)),
+      );
+      await listController.loadFromDatabase();
+      verify(() => mockDatabase.loadDatabase()).called(1);
+    });
+
     test('Mock Database call', () async {
       when(mockDatabase.loadDatabase).thenAnswer(
         (_) => Future.value(TodoModel("Test with Mock", true)),
