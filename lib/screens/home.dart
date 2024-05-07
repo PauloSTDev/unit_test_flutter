@@ -67,6 +67,7 @@ class HomeState extends State<Home> {
             height: 20,
           ),
           ElevatedButton(
+            key: const Key('loadFromDatabase'),
             child: const Text("Load Todo from Database"),
             onPressed: () {
               listController.loadFromDatabase();
