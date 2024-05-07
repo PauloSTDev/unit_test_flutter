@@ -5,11 +5,13 @@ import 'package:unit_test_flutter/services/database.dart';
 import 'package:unit_test_flutter/widgets/todo_card.dart';
 
 class Home extends StatefulWidget {
+  const Home({super.key});
+
   @override
-  _HomeState createState() => _HomeState();
+  HomeState createState() => HomeState();
 }
 
-class _HomeState extends State<Home> {
+class HomeState extends State<Home> {
   final TextEditingController _todoController = TextEditingController();
   ListController listController = ListController(database: Database());
 
@@ -17,15 +19,15 @@ class _HomeState extends State<Home> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("List App"),
+        title: const Text("List App"),
         centerTitle: true,
       ),
       body: Column(
         children: <Widget>[
-          SizedBox(
+          const SizedBox(
             height: 20,
           ),
-          Text(
+          const Text(
             "Add Todo Here:",
             style: TextStyle(
               fontSize: 20,
@@ -33,20 +35,20 @@ class _HomeState extends State<Home> {
             ),
           ),
           Card(
-            margin: EdgeInsets.all(20),
+            margin: const EdgeInsets.all(20),
             child: Padding(
               padding: const EdgeInsets.all(10.0),
               child: Row(
                 children: [
                   Expanded(
                     child: TextFormField(
-                      key: Key("addField"),
+                      key: const Key("addField"),
                       controller: _todoController,
                     ),
                   ),
                   IconButton(
-                    key: Key("addButton"),
-                    icon: Icon(Icons.add),
+                    key: const Key("addButton"),
+                    icon: const Icon(Icons.add),
                     onPressed: () {
                       if (_todoController.text != "") {
                         listController.addTodo(TodoModel(_todoController.text, false));
@@ -61,20 +63,20 @@ class _HomeState extends State<Home> {
               ),
             ),
           ),
-          SizedBox(
+          const SizedBox(
             height: 20,
           ),
           ElevatedButton(
-            child: Text("Load Todo from Database"),
+            child: const Text("Load Todo from Database"),
             onPressed: () {
               listController.loadFromDatabase();
               setState(() {});
             },
           ),
-          SizedBox(
+          const SizedBox(
             height: 20,
           ),
-          Text(
+          const Text(
             "Your Todos",
             style: TextStyle(
               fontSize: 20,

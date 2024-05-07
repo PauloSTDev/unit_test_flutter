@@ -4,10 +4,10 @@ class Database {
   Future<TodoModel> loadDatabase() async {
     try {
       Future.delayed(const Duration(seconds: 3));
-      print("this got called?!?");
+      // print("this got called?!?");
       return TodoModel("From Database", true);
     } catch (e) {
-      print(e);
+      // print(e);
       rethrow;
     }
   }
