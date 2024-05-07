@@ -1,16 +1,22 @@
 import 'package:flutter_test/flutter_test.dart';
+import 'package:mockito/mockito.dart';
 import 'package:unit_test_flutter/controllers/list_controller.dart';
 import 'package:unit_test_flutter/models/todo.dart';
+import 'package:unit_test_flutter/services/database.dart';
+
+class MockDatabase extends Mock implements Database {}
 
 void main() {
+  MockDatabase mockDatabase = MockDatabase();
   ListController listController = ListController();
   setUp(() {
     // This is run before each test
+    listController = ListController(database: mockDatabase);
   });
 
   tearDown(() {
-    listController.clear();
     // Clear the listController after each test
+    listController.clear();
   });
 
   group('TODO Controller', () {
@@ -26,8 +32,8 @@ void main() {
 
     test('CheckBox Selected', () {
       listController.addTodo(TodoModel("Unit Test", false));
+      expect(listController.todoList[0].done, false);
       listController.checkboxSelected(true, 0);
-      expect(listController.todoList.length, 1);
       expect(listController.todoList[0].done, true);
     });
   });
