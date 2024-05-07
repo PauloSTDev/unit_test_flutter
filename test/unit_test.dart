@@ -23,5 +23,12 @@ void main() {
       expect(listController.todoList.length, 1);
       expect(listController.todoList[0].content, "Unit Test");
     });
+
+    test('CheckBox Selected', () {
+      listController.addTodo(TodoModel("Unit Test", false));
+      listController.checkboxSelected(true, 0);
+      expect(listController.todoList.length, 1);
+      expect(listController.todoList[0].done, true);
+    });
   });
 }
